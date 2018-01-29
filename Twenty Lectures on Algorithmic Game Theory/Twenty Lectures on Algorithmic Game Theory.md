@@ -1,6 +1,7 @@
 # Twenty Lectures on Algorithmic Game Theory
 *by Tim Roughgarden*
-If you have any advices, please feel free to create an issue. :smiley:
+
+**If you have any advices, please feel free to create an issue.** :smiley:
 - - -
 ## Lecture 1 - Introduction and Examples
 ### Notes:
