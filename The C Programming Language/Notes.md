@@ -54,3 +54,73 @@ Output:
 ```
 
 `'\n'` is one character, and has type `int` (ASCII = 10). But `"\n"` is a string which contains one character.
+
+### Exercise 1-10
+``` C
+# include <stdio.h>
+
+main()
+{
+    int c;
+
+    while ((c = getchar()) != EOF) {
+        if (c == '\t')
+            putchar("\\t");
+        else if (c == '\b')
+            putchar("\\b");
+        else if (c == '\')
+            putchar("\\");
+        else
+            putchar(c);
+    }
+    return 0;
+}
+```
+
+### Exercise 1-20
+``` C
+# include <stdio.h>
+
+# define N 5 /* a tab for every N columns */
+
+void detab(int n);
+
+main() {
+    detab(N);
+    return 0;
+}
+
+void detab(int n) {
+    int c;
+    int i; 
+    int j;
+
+    j = 0;
+    while ((c = getchar()) != EOF) {
+        if (c == '\t') {
+            while (j<n) {
+                ++j;
+                putchar(' ');
+            }
+            j = 0;  /* clear */
+        } else if (c == '\n') {
+            j = 0;  /* clear */
+        } else {
+            ++j;
+            putchar(c);
+        } 
+    }
+}
+```
+
+Input:
+```
+	1234	123	12	1	12345	1
+```
+
+Output:
+```
+     1234 123  12   1    123451
+```
+
+Note that when we input a line, actually we are always in the `while ((c = getchar()) != EOF) {}` loop. Thus, we should reset `j` to `0` in the while-loop rather than outside.
