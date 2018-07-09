@@ -77,7 +77,7 @@ main()
 }
 ```
 
-### Exercise 1-20
+### Exercise 1-20 [[code]](./code/ex_01_10.c)
 ``` C
 # include <stdio.h>
 
