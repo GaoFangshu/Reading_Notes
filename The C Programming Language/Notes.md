@@ -77,7 +77,7 @@ main()
 }
 ```
 
-### Exercise 1-20 [[code]](./code/ex_01_10.c)
+### Exercise 1-20 [[.c file]](./code/ex_01_20.c)
 ``` C
 # include <stdio.h>
 
@@ -124,3 +124,5 @@ Output:
 ```
 
 Note that when we input a line, actually we are always in the `while ((c = getchar()) != EOF) {}` loop. Thus, we should reset `j` to `0` in the while-loop rather than outside.
+
+### Exercise 1-22 [[.c file]](./code/ex_01_22.c)
