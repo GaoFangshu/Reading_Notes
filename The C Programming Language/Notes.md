@@ -126,3 +126,15 @@ Output:
 Note that when we input a line, actually we are always in the `while ((c = getchar()) != EOF) {}` loop. Thus, we should reset `j` to `0` in the while-loop rather than outside.
 
 ### Exercise 1-22 [[.c file]](./code/ex_01_22.c)
+Wrap line after 10 characters:
+
+Input:
+```
+123 456 789 1234 12345
+```
+Output:
+```
+123 456
+789 1234
+12345
+```
