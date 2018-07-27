@@ -138,7 +138,8 @@ Output:
 789 1234
 12345
 ```
-
+# Chapter 4
+## 4.2
 ### Exercise 4-2 [[.c file]](./code/ex_04_02.c)
 Print numbers in scientific notation:
 
