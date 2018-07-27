@@ -138,3 +138,31 @@ Output:
 789 1234
 12345
 ```
+
+### Exercise 4-2 [[.c file]](./code/ex_04_02.c)
+Print numbers in scientific notation:
+
+Input:
+```
+12345
+```
+Output:
+```
+1.2345e4
+```
+Input:
+```
+-0.12345
+```
+Output:
+```
+-1.2345e-1
+```
+Input:
+```
+0.000
+```
+Output:
+```
+0
+```
