@@ -1,2 +1,8 @@
+*.DS_Store
+
 The C Programming Language/a.out
 The C Programming Language/test.c
+
+Actual Causality/*.aux
+Actual Causality/*.log
+Actual Causality/*.synctex.gz
