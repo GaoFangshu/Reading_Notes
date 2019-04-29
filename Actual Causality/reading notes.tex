@@ -16,9 +16,12 @@
 \usepackage{subcaption} 
 \usepackage{float}
 
+\usepackage{mdframed}
+
+
 \title{Reading Notes of \textit{Actual Causality}}
 \author{Gao Fangshu}
-\date{2019.4.16}
+\date{2019.4.27}
 
 \begin{document}
 \maketitle
@@ -34,7 +37,12 @@ Roughly speaking, reasoning about type causality is equivalent to reasoning abou
 ``But-for" definition of causality: A is a cause of B if, but for A, B would not have happened. However, it is not always enough to determine causality, and \textit{Halpern-Pearl definition} solve some problems where but-for test fails.
 
 \section*{Chapter 2. The HP Definition of Causality}
-Definition: A \textit{causal model} $M$ is a pair $(\mathcal{S}, \mathcal{F})$:
+\subsection*{2.1 Causal Models}
+
+\begin{mdframed}
+\textbf{Definition of causal model}
+
+A \textit{causal model} $M$ is a pair $(\mathcal{S}, \mathcal{F})$:
 \begin{itemize}
 	\item $\mathcal{S}$: A \textit{signature}, explicitly lists the endogenous and exogenous variables and characterizes their possible values. A signature $\mathcal{S}$ is a tuple ($\mathcal{U}$,$\mathcal{V}$,$\mathcal{R}$):
 	\begin{itemize}
@@ -44,7 +52,40 @@ Definition: A \textit{causal model} $M$ is a pair $(\mathcal{S}, \mathcal{F})$:
 	\end{itemize}
 	\item $\mathcal{F}$: A set of \textit{structural equations}. $\mathcal{F}$ associates with each endogenous variable $X \in \mathcal{V}$ a function denoted $F_{X}$ maps $\times_{Z \in(\mathcal{U} \cup \mathcal{V}-\{X\})} \mathcal{R}(Z)$ to $\mathcal{R}(X)$. That means, function $F_{X}$ captures a relation between all varaibles but for $X$ and $X$. $F_{X}$ determines the value of $X$, given the values of all the other variables in $\mathcal{U} \cup \mathcal{V}$. 
 \end{itemize}
+\end{mdframed}
+	
+The key role of the structural equations is that they allow us to determine what happens if things had been other than they were, perhaps due to an external intervention. In many examples, there is general agreement as to the appropriate causal model. The structural equations do not express actual causality; rather, they express the effects of interventions or, more generally, of variables taking on values other than their actual values. 
 
+There may be  uncertainty of about the effects of interventions. All this uncertainty can be described by putting a probability on causal models and on the values of the exogenous variables. We can then talk about the probability that $A$ is a cause of $B$.
 
+The dependencies between variables in a causal model $M$ can be described using a \textit{causal network} (sometimes called a \textit{causal graph}), consisting of nodes and directed edges. Informally, a model is said to be \textit{recursive} (or \textit{acyclic}) if there are no such dependency cycles (sometimes called \textit{feedback cycles}) among the variables. A \textit{strongly recursive} model is a model that if we know values of the exogenous variables, we know values of all variables else. The values of all variables are determined given a \textit{context}.
+
+\begin{mdframed}
+\textbf{Definition of recursive model}
+
+First, we define \textit{partial order} $\preceq$: $X \preceq Y$  denotes that $X$ affects $Y$. The fact that $\preceq$ is a partial order means that $\preceq$ is a \textit{reflexive}, \textit{anti-symmetric}, and \textit{transitive} relation:
+\begin{itemize}
+	\item reflexive: $\forall X, X\preceq X$
+	\item anti-symmetric: $X\preceq Y, Y\preceq X \Rightarrow X=Y$
+	\item transitive: $X\preceq Y, Y\preceq Z \Rightarrow X\preceq Z$
+\end{itemize}
+
+Second, we define \textit{independency}: $Y$ is independent of $X$ in  $(M, \vec{u})$ if, for all settings $\vec{z}$ of the endogenous variables other than $X$ and $Y$, and all values $x$ and $x'$ of $X$, $F_{Y}(x, \vec{z}, \vec{u})=F_{Y}\left(x^{\prime}, \vec{z}, \vec{u}\right)$. That is, if we control all other variables, changing the value of $X$ cannot affect value of $Y$.
+
+Then we define \textit{recursive model}: A model $M$ is recursive if, for each context (setting of the exogenous variables) $\vec{u}$, there is a partial order $\preceq_{\vec{u}}$ of the endogenous variables such that unless $X \preceq_{\vec{u}} Y$, $Y$ is independent of $X$ in $(M, \vec{u})$.
+
+If M is a \textit{strongly recursive} model, then we can assume that all the partial orders $\preceq_{\vec{u}}$ are the same; in a recursive model, they may differ. 
+\end{mdframed}
+
+The choice of model can have a significant impact in determining causality ascriptions. $A$ may be a cause of $B$ relative to $(M, \vec{u})$ and not a cause of $B$ relative to $\left(M^{\prime}, \vec{u}^{\prime}\right)$.
+
+\subsection*{2.2 A Formal Definition of Actual Cause}
+We associate a causal formula $\varphi$ with a set of context . $\left[Y_{1} \leftarrow y_{1}, \dots, Y_{k} \leftarrow y_{k}\right] \varphi$ says that $\varphi$ would hold if $Y_i$ were set to $y_i$, for $i = 1,\dots,k$. A \textit{causal formula} (over $\mathcal{S}=(\mathcal{U}, \mathcal{V}, \mathcal{R})$) is one of the form $\left[Y_{1} \leftarrow y_{1}, \dots, Y_{k} \leftarrow y_{k}\right] \varphi$, where (1) $\varphi$ is a Boolean combination of primitive events; (2) $Y_{1}, \dots, Y_{k}$ are distinct variables in $\mathcal{V}$; (3) $y_{i} \in \mathcal{R}\left(Y_{i}\right)$. In a causal model, a causal formula $\varphi$ may be true or false.
+
+For $\mathcal{S}=(\mathcal{U}, \mathcal{V}, \mathcal{R})$, let $\mathcal{L}(\mathcal{S})$ consist of all Boolean combinations of causal formulas, where the variables in the formulas are taken from $\mathcal{V}$ and the sets of possible values of these variables are determined by $\mathcal{R}$.
+
+Let $(M, \vec{u}) \models \psi$ if the causal formula $\psi$ is true in the \textit{causal setting} $(M, \vec{u})$. Given a model $M$, the model that describes the result of the intervention setting variables in $\vec{Y}$ to $\vec{y}$ is $M_{\vec{Y} \leftarrow \vec{y}}$. If $\psi$ holds after the intervention, we have: $(M, \vec{u})\models[\vec{Y} \leftarrow \vec{y}] \psi$ iff $(M_{\vec{Y} \leftarrow \vec{y}}, \vec{u})\models\psi$.
+
+The notation $(M, \vec{u}) \models \varphi$ is standard in the logic and philosophy communities. In the example of forest fire, $M^{d}$ is the disjunctive model. $\left(M^{d},(1,1)\right) \models [MD \leftarrow 0](FF=1)$, or $\left(M_{M D \leftarrow 0}^{d},(1,1)\right) \models [L \leftarrow 0 ; M D \leftarrow 0](F F=0)$, means that ``even if the arsonist is somehow prevented from dropping the match, the forest burns''.
 
 \end{document}
