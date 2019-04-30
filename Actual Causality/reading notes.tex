@@ -80,7 +80,7 @@ If M is a \textit{strongly recursive} model, then we can assume that all the par
 The choice of model can have a significant impact in determining causality ascriptions. $A$ may be a cause of $B$ relative to $(M, \vec{u})$ and not a cause of $B$ relative to $\left(M^{\prime}, \vec{u}^{\prime}\right)$.
 
 \subsection*{2.2 A Formal Definition of Actual Cause}
-We associate a causal formula $\varphi$ with a set of context . $\left[Y_{1} \leftarrow y_{1}, \dots, Y_{k} \leftarrow y_{k}\right] \varphi$ says that $\varphi$ would hold if $Y_i$ were set to $y_i$, for $i = 1,\dots,k$. A \textit{causal formula} (over $\mathcal{S}=(\mathcal{U}, \mathcal{V}, \mathcal{R})$) is one of the form $\left[Y_{1} \leftarrow y_{1}, \dots, Y_{k} \leftarrow y_{k}\right] \varphi$, where (1) $\varphi$ is a Boolean combination of primitive events; (2) $Y_{1}, \dots, Y_{k}$ are distinct variables in $\mathcal{V}$; (3) $y_{i} \in \mathcal{R}\left(Y_{i}\right)$. In a causal model, a causal formula $\varphi$ may be true or false.
+We associate a causal formula $\varphi$ with a set of context . $[Y_{1} \leftarrow y_{1}, \dots, Y_{k} \leftarrow y_{k}] \varphi$ says that $\varphi$ would hold if $Y_i$ were set to $y_i$, for $i = 1,\dots,k$. A \textit{causal formula} (over $\mathcal{S}=(\mathcal{U}, \mathcal{V}, \mathcal{R})$) is one of the form $[Y_{1} \leftarrow y_{1}, \dots, Y_{k} \leftarrow y_{k}] \varphi$, where (1) $\varphi$ is a Boolean combination of primitive events; (2) $Y_{1}, \dots, Y_{k}$ are distinct variables in $\mathcal{V}$; (3) $y_{i} \in \mathcal{R}\left(Y_{i}\right)$. In a causal model, a causal formula $\varphi$ may be true or false.
 
 For $\mathcal{S}=(\mathcal{U}, \mathcal{V}, \mathcal{R})$, let $\mathcal{L}(\mathcal{S})$ consist of all Boolean combinations of causal formulas, where the variables in the formulas are taken from $\mathcal{V}$ and the sets of possible values of these variables are determined by $\mathcal{R}$.
 
@@ -94,19 +94,30 @@ The notation $(M, \vec{u}) \models \varphi$ is standard in the logic and philoso
 	$\vec{X}=\vec{x}$ is an actual cause of $\varphi$ in the causal setting $(M, \vec{u})$ if the following three conditions hold (three versions of HP definition are only different in AC2):
 
 	\begin{itemize}
-		\item AC1. $(M, \vec{u})=(\vec{X}=\vec{x})$ and $(M, \vec{u})=\varphi$
+		\item AC1. $(M, \vec{u})\models(\vec{X}=\vec{x})$ and $(M, \vec{u})\models\varphi$
 		\item AC2. See below:
 		\begin{itemize}
-		\item AC2(a). There is a partition of $\mathcal{V}$ (the set of endogenous variables) into two disjoint subsets $\vec{Z}$ and $\vec{W}($ so that $\vec{Z} \cap \vec{W}=\emptyset)$ with $\vec{X} \subseteq \vec{Z}$ and a setting $\vec{x}^{\prime}$ and $\vec{w}$ of the variables in $\vec{X}$ and $\vec{W},$ respectively, such that $(M, \vec{u})=\left[\vec{X} \leftarrow \vec{x}^{\prime}, \vec{W} \leftarrow \vec{w}\right] \neg \varphi$
-		\item
-		\item
+		\item AC2(a). There is a partition of $\mathcal{V}$ (the set of endogenous variables) into two disjoint subsets $\vec{Z}$ and $\vec{W}($ so that $\vec{Z} \cap \vec{W}=\emptyset)$ with $\vec{X} \subseteq \vec{Z}$ and a setting $\vec{x}^{\prime}$ and $\vec{w}$ of the variables in $\vec{X}$ and $\vec{W},$ respectively, such that $(M, \vec{u})\models[\vec{X} \leftarrow \vec{x}^{\prime}, \vec{W} \leftarrow \vec{w}] \neg \varphi$
+		\item AC2($\mathrm{b}^{o}$) (original). If $\vec{z}^{*}$ is such that $(M, \vec{u}) \models \vec{Z}=\vec{z}^{*},$ then for all subsets $\vec{Z}^{\prime}$ of $\vec{Z}-\vec{X},$ we have $(M, \vec{u})\models[\vec{X} \leftarrow \vec{x}, \vec{W} \leftarrow \vec{w}, \vec{Z}^{\prime} \leftarrow \vec{z}^{*}] \varphi$.
+		\item AC2($\mathrm{b}^{u}$) (updated). If $\vec{z}^{*}$ is such that $(M, \vec{u})\models\vec{Z}=\vec{z}^{*},$ then for all subsets $\vec{W}^{\prime}$ of $\vec{W}$ and subsets $\vec{Z}^{\prime}$ of $\vec{Z}-\vec{X},$ we have $(M, \vec{u})\models[\vec{X} \leftarrow \vec{x}, \vec{W}^{\prime} \leftarrow \vec{w}, \vec{Z}^{\prime} \leftarrow \vec{z}^{*}] \varphi$
+		\item AC2($\mathrm{a}^{m}$) (modified). There is a set $\vec{W}$ of variables in $\mathcal{V}$ and a setting $\vec{x}^{\prime}$ of the variables in $\vec{X}$ such that if $(M, \vec{u})\models\vec{W}=\vec{w}^{*},$ then $(M, \vec{u})\models[\vec{X} \leftarrow \vec{x}^{\prime}, \vec{W} \leftarrow \vec{w}^{*}] \neg \varphi$
 		\end{itemize}
 		\item AC3. $\vec{X}$ is minimal; there is no strict subset $\vec{X}^{\prime}$ of $\vec{X}$ such that $\vec{X}^{\prime}=\vec{x}^{\prime}$ satisfies condition
 		ACl and AC2, where $\vec{x}^{\prime}$ is the restriction of $\vec{x}$ to the variables in $\vec{X}$ .
 	\end{itemize}
-
-Ac
 	
 \end{mdframed}
+
+AC1 just says that $\vec{X}=\vec{x}$ cannot be considered a cause of $\varphi$ unless both $\vec{X}=\vec{x}$ and $\varphi$ actually happen.
+
+AC2(a) is a necessity condition. It says that for $X = x$ to be a cause of $\varphi$, there must be a value $x′$ in the range of $X$ such that if $X$ is set to $x'$, $\varphi$ no longer holds. This is the but-for clause; but for the fact that $X=x$ occurred, $\varphi$ would not have occurred.
+
+AC2($\mathrm{b}^{o}$) says that changing $\vec{Z}$ (may due to setting $\vec{W}$ to $\vec{w}$, or some variables in $\vec{Z}$ are forced to their original values) does not affect $\varphi$; $\varphi$ continues to be true.
+
+The only difference between AC2($\mathrm{b}^{o}$) and AC2($\mathrm{b}^{u}$) lies in the clause ``for all subsets $\vec{W}^{\prime}$ of $\vec{W}$'': AC2($\mathrm{b}^{u}$) must hold even if only a subset of $\vec{W}^{\prime}$ of the variables in $\vec{W}$ are set to their values in $\vec{w}$. This means that the variables in $\vec{W}-\vec{W}^{\prime}$ essentially act as they do in the real world; thar is, their values are determined by the structural equations, rather than being set to their values in $\vec{w}$.
+
+AC3 is a minimality condition, which ensures that only those elements of the conjunction $\vec{X}=\vec{x}$ that are essential are considered part of a cause; inessential elements are pruned.
+
+
 
 \end{document}
