@@ -1,0 +1,56 @@
+%-*- coding: UTF-8 -*-
+\documentclass{article}
+
+\usepackage{indentfirst}
+\setlength{\parindent}{0.5cm}
+
+\usepackage{graphicx}
+\usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+
+%\usepackage{setspace}
+%\renewcommand{\baselinestretch}{1.3}
+
+%\usepackage{titling}
+%\setlength{\droptitle}{-2cm}
+
+\usepackage{subcaption} 
+\usepackage{float}
+
+\usepackage{mdframed}
+
+
+\title{Reading Notes of \textit{Causal Inference}}
+\author{Gao Fangshu}
+\date{2019.4.27}
+
+\begin{document}
+\maketitle
+\part*{Causal inference without models}
+\section{A definition of causal effect}
+\subsection{Individual causal effects}
+\begin{mdframed}
+Causal effect for individual $i$: 
+\begin{center}
+	$Y_{i}^{a=1} \neq Y_{i}^{a=0}$
+\end{center}
+the treatment $A$ has a causal effect on an individual’s outcome $Y$ if $Y^{a=1} \neq Y^{a=0}$ for the individual.
+\end{mdframed}
+That is, for individual $i$,  $Y^{a=1}$ (is a random variable, read $Y$ under treatment $a=1$), the outcome variable that would have been observed under the treatment value $a=1$ is not equal to the outcome variable that would have been observed under the treatment value $a=0$ ($Y^{a=0}$). The variables  $Y^{a=1}$ and $Y^{a=0}$ are referred to as \textit{potential outcomes} or as \textit{counterfactual outcomes}. In economics, we often refer ``counterfactual outcomes'' to outcomes that had not happend. But here, both $Y^{a=0}$ and $Y^{a=1}$ are counterfactual outcomes, no matter auctually $a=0$ or $a=1$. 
+
+the counterfactual outcomes that corresponds to the treatment value that the individual actually received is \textit{actually factual}.
+\begin{mdframed}
+Consistency:
+\begin{center}
+if $A_{i}=a,$ then $Y_{i}^{a}=Y^{A_{i}}=Y_{i}$
+\end{center}
+an individual with observed treatment $A=a$, has observed outcome $Y$ equal to his counterfactual outcome $Y^{a}$.
+\end{mdframed}
+That is, the observed outcome is equal to what (we think that) would have been observed.
+
+In general, individual causal effects cannot be identified -- that is, cannot be expressed as a function of the observed data -- because of missing data. 
+
+\subsection{Average causal effects}
+
+
+
+\end{document}
