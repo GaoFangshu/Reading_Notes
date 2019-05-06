@@ -6,3 +6,5 @@
 **The C Programming Language**, Brian W. Kernighan, Dennis M. Ritchie. [[notes]](https://github.com/GaoFangshu/Reading_Notes/blob/master/The%20C%20Programming%20Language/Notes.md)
 
 **Actual Causality**, Joseph Y. Halpern [[notes]](https://github.com/GaoFangshu/Reading_Notes/blob/master/Actual%20Causality/reading%20notes.pdf)
+
+**Causal Inference**, Hernán MA, Robins JM [[notes]]() 
