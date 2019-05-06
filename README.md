@@ -7,4 +7,4 @@
 
 **Actual Causality**, Joseph Y. Halpern [[notes]](https://github.com/GaoFangshu/Reading_Notes/blob/master/Actual%20Causality/reading%20notes.pdf)
 
-**Causal Inference**, Hernán MA, Robins JM [[notes]]() 
+**Causal Inference**, Hernán MA, Robins JM [[notes]](https://github.com/GaoFangshu/Reading_Notes/blob/master/Causal%20Inference/reading%20notes.pdf) 
