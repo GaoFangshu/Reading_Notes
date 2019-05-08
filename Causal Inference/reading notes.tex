@@ -18,10 +18,14 @@
 
 \usepackage{mdframed}
 
+\usepackage{amsmath}
 
-\title{Reading Notes of \textit{Causal Inference}}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{gray}{gray}{0.5}
+
+\title{Reading Notes of \textit{Causal Inference}\footnote{Hernán MA, Robins JM (2019). Causal Inference. Boca Raton: Chapman \& Hall/CRC, forthcoming.}}
 \author{Gao Fangshu}
-\date{2019.4.27}
+\date{2019.5.7}
 
 \begin{document}
 \maketitle
@@ -35,9 +39,10 @@ Causal effect for individual $i$:
 \end{center}
 the treatment $A$ has a causal effect on an individual’s outcome $Y$ if $Y^{a=1} \neq Y^{a=0}$ for the individual.
 \end{mdframed}
-That is, for individual $i$,  $Y^{a=1}$ (is a random variable, read $Y$ under treatment $a=1$), the outcome variable that would have been observed under the treatment value $a=1$ is not equal to the outcome variable that would have been observed under the treatment value $a=0$ ($Y^{a=0}$). The variables  $Y^{a=1}$ and $Y^{a=0}$ are referred to as \textit{potential outcomes} or as \textit{counterfactual outcomes}. In economics, we often refer ``counterfactual outcomes'' to outcomes that had not happend. But here, both $Y^{a=0}$ and $Y^{a=1}$ are counterfactual outcomes, no matter auctually $a=0$ or $a=1$. 
 
-the counterfactual outcomes that corresponds to the treatment value that the individual actually received is \textit{actually factual}.
+That is, for individual $i$,  $Y^{a=1}$ (is a random variable, read $Y$ under treatment $a=1$), the outcome variable that would have been observed under the treatment value $a=1$ is not equal to the outcome variable that would have been observed under the treatment value $a=0$ ($Y^{a=0}$). The variables  $Y^{a=1}$ and $Y^{a=0}$ are referred to as \textit{potential outcomes} or as \textit{counterfactual outcomes}. \textcolor{gray}{In economics, we often refer ``counterfactual outcomes'' to outcomes that had not happend. But here, both $Y^{a=0}$ and $Y^{a=1}$ are counterfactual outcomes, no matter auctually $a=0$ or $a=1$.}
+
+The counterfactual outcomes that corresponds to the treatment value that the individual actually received is \textit{actually factual}.
 \begin{mdframed}
 Consistency:
 \begin{center}
@@ -45,12 +50,125 @@ if $A_{i}=a,$ then $Y_{i}^{a}=Y^{A_{i}}=Y_{i}$
 \end{center}
 an individual with observed treatment $A=a$, has observed outcome $Y$ equal to his counterfactual outcome $Y^{a}$.
 \end{mdframed}
-That is, the observed outcome is equal to what (we think that) would have been observed.
+
+\textcolor{gray}{Consistency is that the observed outcome is equal to what (we think that) would have been observed.}
 
 In general, individual causal effects cannot be identified -- that is, cannot be expressed as a function of the observed data -- because of missing data. 
 
 \subsection{Average causal effects}
+\begin{mdframed}
+Average causal effect in population:
+\begin{center}
+	$\mathrm{E}\left[Y^{a=1}\right] \neq \mathrm{E}\left[Y^{a=0}\right]$
+\end{center}
+\end{mdframed}
+
+Absence of an average causal effect does not imply absence of individual effects. When there is no causal effect for any individual in the population, i.e., $Y^{a=1}=Y^{a=0}$ for all individuals, we say that the \textit{sharp causal null hypothesis} is true.  
+
+Average causal effects can sometimes be identified from data, even if individual causal effects cannot.
+
+\subsection{Measures of causal effect}
+We can represent the causal null by: (1)  causal risk difference  $\operatorname{Pr}\left[Y^{a=1}=1\right]-\operatorname{Pr}\left[Y^{a=0}=1\right]=0$; (2) causal risk ratio  $\frac{\operatorname{Pr}\left[Y^{a=1}=1\right]}{\operatorname{Pr}\left[Y^{a=0}=1\right]}=1$; (3) causal odds ratio $\frac{\operatorname{Pr}\left[Y^{a=1}=1\right] / \operatorname{Pr}\left[Y^{a=1}=0\right]}{\operatorname{Pr}\left[Y^{a=0}=1\right] / \operatorname{Pr}\left[Y^{a=0}=0\right]}=1$.
+
+These causal parameters quantify the strength of the same causal effect on different scales. Because the causal risk difference, risk ratio, and odds ratio (and other summaries) measure the causal effect, we refer to them as \textit{effect measures}.
+
+\subsection{Random variability}
+In causal inference, random error derives from sampling variability, nondeterministic counterfactuals, or both. 
+
+$1^{\mathrm{st}}$ source of random error is \textit{sampling variability}. When we only have a random sample from a much larger, near-infinite population, $\operatorname{Pr}\left[Y^{a=0}=1\right]$ cannot be directly computed (instead, we have $\widehat{\operatorname{Pr}}\left[Y^{a=0}=1\right]$ from the sample, sometimes it is a consistent estimator of $\operatorname{Pr}\left[Y^{a=0}=1\right]$). 
+
+$2^{\mathrm{nd}}$ source of random error is \textit{nondeterministic counterfactuals}. Counterfactual outcomes may be stochastic or nondeterministic.
+
+\textcolor{red}{TODO:} Technical Point 1.2 \textbf{Nondeterministic counterfactuals} needs to be added.
+
+\subsection{Causation versus association}
+Some equivalent definitions of independence are: (1) associational
+risk difference $\operatorname{Pr}[Y=1 | A=1]-\operatorname{Pr}[Y=1 | A=0]=0$; (2) associational risk ratio $\frac{\operatorname{Pr}[Y=1 | A=1]}{\operatorname{Pr}[Y=1 | A=0]}=1$; (3) associational odds ratio $\frac{\operatorname{Pr}[Y=1 | A=1] / \operatorname{Pr}[Y=0 | A=1]}{\operatorname{Pr}[Y=1 | A=0] / \operatorname{Pr}[Y=0 | A=0]}=1$. The left hand sides measure the association on different scales, and we refer to them as \textit{association measures}. 
+
+For a continuous outcome $Y$ we define \textit{mean independence} between treatment and outcome as: $\mathrm{E}[Y | A=1]=\mathrm{E}[Y | A=0]$. Independence and mean independence are the same concept for dichotomous outcomes.
+
+\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\linewidth]{fig/001}
+\end{figure}
+
+As the figure shows, \textit{association} is defined by a different risk in two disjoint subsets of the population determined by the individuals’ actual treatment value ($A=1$ or $A=0$), whereas \textit{causation} is defined by a different risk in the same population under two different treatment values ($a=1$ or $a=0$). \textcolor{gray}{In economics, ``selection bias'' may be a problem for association.} In this book, the discrepancy between association and causation is referred as \textit{confounding}.
 
 
+\section{Randomized experiments}
+\subsection{Randomization}
+In ideal randomized experiments, association is causation.
+
+\begin{mdframed}
+Exchangeability:
+\begin{center}
+	$Y^{a} \perp A$ for all $a$
+\end{center}
+\end{mdframed}
+
+That is, the risk under the potential treatment value $a$ among the treated, $\operatorname{Pr}\left[Y^{a}=1 | A=1\right]$, equals the risk under the potential treatment value $a$ among the untreated, $\operatorname{Pr}\left[Y^{a}=1 | A=0\right]$, for both $a=0$ and $a=1$. \textcolor{gray}{$\operatorname{Pr}\left[Y^{a}=1 | A=1\right]$ means that we choose people by $A=1$, and observe their outcome with treatment value $a$.}
+
+Randomization is so highly valued because it is expected to produce exchangeability. When the treated and the untreated are exchangeable, we sometimes say that treatment is exogenous, and thus \textit{exogeneity} is commonly used as a synonym for exchangeability.
+
+Independence between the counterfactual outcome and the observed treatment $Y^{a} \perp A$ does not imply independence between the observed outcome and the observed treatment $Y \perp A$. For example, suppose there is a causal effect on some individuals so that $Y^{a=1} \neq Y^{a=0}$. Since $Y=Y^{A}$, then $Y^{a}$ with $a$ evaluated at the observed treatment $A$ is the observed $Y^{A}$, which depends on $A$ and thus will not be independent of $A$.
+
+It is possible that a study is a randomized experiment even if exchangeability does not hold in
+infinite samples. There may be two reasons: (1) the sample size is too small, random fluctuations arising from sampling variability could explain almost anything; (2) randomized experiments with more than one randomization step.
+
+\subsection{Conditional randomization}
+We call the experiments using a single unconditional (marginal) randomization probability that is common to all individuals as \textit{marginally randomized experiments}. And we call the experiments using several randomization probabilities that depend (are conditional) on the values of the variables as \textit{conditionally randomized experiments}.
+
+Conditional randomization does not guarantee unconditional (or marginal) exchangeability $Y^{a} \perp A$, it guarantees \textit{conditional exchangeability} $Y^{a} \perp A | L$ within levels of the variable $L$.
+
+\begin{mdframed}
+Conditional exchangeability:
+	\begin{center}
+		$Y^{a} \perp A | L$ ($Y^{a} \perp A | L=l$ holds for all values $l$) for all $a$
+	\end{center}
+\end{mdframed}
+
+We can compute the average causal effect in each of these subsets of strata of the population, for example, $\operatorname{Pr}\left[Y^{a=1}=1 | L=1\right] / \operatorname{Pr}\left[Y^{a=0}=1 | L=1\right]$ (however, we can compute the average causal effect $\operatorname{Pr}\left[Y^{a=1}=1\right] / \operatorname{Pr}\left[Y^{a=0}=1\right]$ in the entire population, if we  do not expect to have information on $L$ for future individuals). We refer to this method to compute stratum-specific causal effects as \textit{stratification}. Stratumspecific causal risk ratio in the subset $L=1$ may differ from the causal risk ratio in $L=0$. In that case, we say that the effect of treatment is modified by $L$, or that there is \textit{effect modification} by $L$. 
+
+\subsection{Standardization}
+
+
+
+\section{Observational studies}
+
+
+\section{Effect modification}
+
+
+\section{Interaction}
+
+
+\section{Graphical representation of causal effects}
+
+
+\section{Confounding}
+
+
+\section{Selection bias}
+
+\section{Measurement bias}
+
+\section{Random variability}
+
+\part*{Causal inference with models}
+\section{Why model?}
+
+\section{IP weighting and marginal structural models}
+
+\section{Standardization and the parametric g-formula}
+
+\section{G-estimation of structural nested models}
+
+\section{Outcome regression and propensity scores}
+
+\section{Instrumental variable estimation}
+
+\section{Causal survival analysis}
+
+\section{Variable selection for causal inference}
 
 \end{document}
