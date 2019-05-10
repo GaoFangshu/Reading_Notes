@@ -156,7 +156,25 @@ We can compute the average causal effect in each of these subsets of strata of t
 
 \part*{Causal inference with models}
 \section{Why model?}
+\subsection{Data cannot speak for themselves}
+We cannot always let the data “speak for themselves” to obtain a consistent estimate. Rather, we often need to supplement the data with a model. For example, we would not compute an estimator $\widehat{\mathrm{E}}[Y | A=a]$ of $\mathrm{E}[Y | A=a]$ when $A$ were a truly continuous variable, the sample average would be undefined for nearly all treatment levels.
 
+\subsection{Parametric estimators}
+A model is an a priori restriction on the distribution of the data. A parametric model is like adding information that is not in the data to compensate for the lack of sufficient information in the data themselves. 
+
+Model-based causal inference relies on the condition of (approximately) \textit{no model misspecification}. Because parametric models are rarely, if ever, perfectly specified, certain degree of model misspecification is almost always expected.
+
+\subsection{Nonparametric estimators}
+Whenever the number of parameters in the model is equal to the number of population quantities that can be estimated by using the model, then the model is \textit{saturated}. A saturated model has the same number of unknowns in both sides of the equal sign. 
+
+When a model has only a few parameters but it is used to estimate many population quantities, we say that the model is \textit{parsimonious}.
+
+For causal inference, identifiability assumptions are the assumptions that we would have to make even if we had an infinite amount of data. Modeling assumptions are the assumptions that we have to make precisely because we do not have an infinite amount of data.
+
+\subsection{The bias-variance trade-off}
+In general, the larger the number of parameters in the model, the fewer restrictions the model imposes; the less smooth the model, the more protection afforded against bias from model misspecification. Although less smooth models may yield a less biased estimate, they also result in a larger variance, i.e., wider 95\% confidence intervals around the estimate. 
+
+\textbf{Technical Point 11.1 (A taxonomy of commonly used models)}: Linear regression models are a subset of larger class of models: Generalized Linear Models. GLMs have three components: a linear functional form $\sum_{i=0}^{p} \theta_{i} X_{i},$ a link function $g\{\}$ such that $g\{\mathrm{E}[Y | X]\}=\sum_{i=1}^{p} \theta_{i} X_{i},$ and a distribution for the $Y$ conditional on $X .$ If we do not model the distribution of $Y$ conditional on $X,$ we refer to the model as a conditional mean model. We can restrict outcomes with different link functions (identity link, log link, logit link, etc.). \textcolor{gray}{There are interesting introductions, that we omit here, about generalized estimating equation (GEE) models, generalized additive models (GAMs) and kernel regression models.}
 \section{IP weighting and marginal structural models}
 
 \section{Standardization and the parametric g-formula}
@@ -164,6 +182,30 @@ We can compute the average causal effect in each of these subsets of strata of t
 \section{G-estimation of structural nested models}
 
 \section{Outcome regression and propensity scores}
+Outcome regression and propensity scores are commonly used but have limited applicability for complex longitudinal data.
+
+\subsection{Outcome regression}
+
+\subsection{Propensity scores}
+If the distribution of $p(L)$ were the same for the treated $A=1$ and the untreated $A=0$, then there would be no confounding due to $L$, i.e., there would be no open path from $L$ to $A$ on a causal diagram.
+
+Individuals with same propensity score $p(L)$ will generally have different values of some covariates $L$. For example, two individuals with $p(L)=0.2$ may differ with respect to smoking intensity and exercise, and yet they may be equally likely to quit smoking given all the variables in $L$. That is, both individuals have the same conditional probability of ending up in the treated group $A=1$. If we consider all individuals with a given value of $p(L)$ in the superpopulation, this group will include individuals with different values of $L$ (e.g., different values of smoking intensity and exercise), but the distribution of $L$ will be the same in the treated and the untreated, that is, $A \perp L | p(L)$. We say the propensity score balances the covariates between the treated and the untreated.
+
+\subsection{Propensity stratification and standardization}
+
+\subsection{Propensity matching}
+Defining closeness in propensity matching entails a bias-variance trade-off.
+
+Using propensity scores to detect the overlapping range of the treated and the untreated may be useful, but simply restricting the study population to that range is a lazy way to ensure positivity. The automatic positivity ensured by propensity matching needs to be weighed against the difficulty of assessing transportability when restriction is solely based on the value of the estimated propensity scores.
+
+\subsection{Propensity models, structural models, predictive models}
+Propensity models are models for the probability of treatment $A$ given the variables $L$ used to try to achieve conditional exchangeability.
+
+The dual use of outcome regression in both causal inference method and in prediction has led to many misunderstandings. One of the most important misunderstandings has to do with variable selection procedures. When the interest lies exclusively on outcome prediction, investigators want to select any variables that, when included as covariates in the model, improve its predictive ability. Many well-known variable selection procedures –– e.g., forward selection, backward elimination, stepwise selection –– and more recent developments in machine learning are used to enhance prediction. These are powerful tools for investigators who are interested in prediction, especially when dealing with very high-dimensional data.  A possible result of this mismatch is the inclusion of superfluous –– or even harmful –– covariates in propensity models and structural models. Specifically, the application of predictive algorithms to causal inference models may result in inflated variances.
+
+Propensity models do not need to predict treatment very well. They just need to include the variables $L$ that guarantee exchangeability. Covariates that are strongly associated with treatment, but are not necessary to guarantee exchangeability, do not help reduce bias. If these covariates were included in $L$, adjustment can actually result in estimates with very large variances. \textcolor{gray}{Only variables that influence simultaneously the participation decision and the outcome variable should be included. It should also be clear that only variables that are unaffected by participation (or the anticipation of it) should be included in the model. To ensure this, variables should either be fixed over time or measured before participation.(Caliendo \& Kopeinig, 2008)}
+
+Besides variance inflation, a predictive attitude towards variable selection for causal inference models –– both propensity models and outcome regression models –– may also result in self-inflicted bias.
 
 \section{Instrumental variable estimation}
 
