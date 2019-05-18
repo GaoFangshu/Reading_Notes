@@ -10,3 +10,6 @@ Actual Causality/*.synctex.gz
 Causal Inference/*.aux
 Causal Inference/*.log
 Causal Inference/*.synctex.gz
+
+Data Structure/code/*.o
+Data Structure/code/*.exe
