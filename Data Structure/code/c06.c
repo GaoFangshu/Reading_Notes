@@ -1,4 +1,4 @@
-/* Isomorphic trees */
+/* Isomorphic Trees */
 
 #include <stdio.h>
 

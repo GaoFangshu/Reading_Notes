@@ -1,4 +1,4 @@
-/* Merge two ordered list*/
+/* Merge two Ordered List*/
 
 List Merge( List L1, List L2 ){
     List L=(List)malloc(sizeof(struct Node));

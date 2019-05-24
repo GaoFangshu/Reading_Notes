@@ -1,4 +1,4 @@
-/* Multiplication and addition of univariate polynomials */
+/* Multiplication and Addition of Univariate Polynomials */
 
 #include <stdio.h>
 #include <stdlib.h>
