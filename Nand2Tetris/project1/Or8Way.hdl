@@ -1,0 +1,45 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Or8Way.hdl
+
+/**
+ * 8-way Or: 
+ * out = (in[0] or in[1] or ... or in[7])
+ */
+
+CHIP Or8Way {
+    IN in[8];
+    OUT out;
+
+    PARTS:
+    // Put your code here:
+        Nand (a=in[0], b=in[0], out=not0);
+        Nand (a=in[1], b=in[1], out=not1);
+        Nand (a=not0, b=not1, out=out1);
+
+        Nand (a=out1, b=out1, out=notout1);
+        Nand (a=in[2], b=in[2], out=not2);
+        Nand (a=notout1, b=not2, out=out2);
+
+        Nand (a=out2, b=out2, out=notout2);
+        Nand (a=in[3], b=in[3], out=not3);
+        Nand (a=notout2, b=not3, out=out3);
+
+        Nand (a=out3, b=out3, out=notout3);
+        Nand (a=in[4], b=in[4], out=not4);
+        Nand (a=notout3, b=not4, out=out4);
+
+        Nand (a=out4, b=out4, out=notout4);
+        Nand (a=in[5], b=in[5], out=not5);
+        Nand (a=notout4, b=not5, out=out5);
+
+        Nand (a=out5, b=out5, out=notout5);
+        Nand (a=in[6], b=in[6], out=not6);
+        Nand (a=notout5, b=not6, out=out6);
+
+        Nand (a=out6, b=out6, out=notout6);
+        Nand (a=in[7], b=in[7], out=not7);
+        Nand (a=notout6, b=not7, out=out);
+
+}

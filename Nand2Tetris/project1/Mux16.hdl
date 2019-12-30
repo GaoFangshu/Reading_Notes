@@ -1,0 +1,75 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux16.hdl
+
+/**
+ * 16-bit multiplexor: 
+ * for i = 0..15 out[i] = a[i] if sel == 0 
+ *                        b[i] if sel == 1
+ */
+
+CHIP Mux16 {
+    IN a[16], b[16], sel;
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+        // (a and not sel) or (b and sel) 
+
+        // not sel
+        Nand (a=sel, b=sel, out=notsel);
+        
+        // a and not sel
+        Nand (a=a[0], b=notsel, out=naans0);
+        Nand (a=a[1], b=notsel, out=naans1);
+        Nand (a=a[2], b=notsel, out=naans2);
+        Nand (a=a[3], b=notsel, out=naans3);
+        Nand (a=a[4], b=notsel, out=naans4);
+        Nand (a=a[5], b=notsel, out=naans5);
+        Nand (a=a[6], b=notsel, out=naans6);
+        Nand (a=a[7], b=notsel, out=naans7);
+        Nand (a=a[8], b=notsel, out=naans8);
+        Nand (a=a[9], b=notsel, out=naans9);
+        Nand (a=a[10], b=notsel, out=naans10);
+        Nand (a=a[11], b=notsel, out=naans11);
+        Nand (a=a[12], b=notsel, out=naans12);
+        Nand (a=a[13], b=notsel, out=naans13);
+        Nand (a=a[14], b=notsel, out=naans14);
+        Nand (a=a[15], b=notsel, out=naans15);
+
+        // b and sel
+        Nand (a=b[0], b=sel, out=nbas0);
+        Nand (a=b[1], b=sel, out=nbas1);
+        Nand (a=b[2], b=sel, out=nbas2);
+        Nand (a=b[3], b=sel, out=nbas3);
+        Nand (a=b[4], b=sel, out=nbas4);
+        Nand (a=b[5], b=sel, out=nbas5);
+        Nand (a=b[6], b=sel, out=nbas6);
+        Nand (a=b[7], b=sel, out=nbas7);
+        Nand (a=b[8], b=sel, out=nbas8);
+        Nand (a=b[9], b=sel, out=nbas9);
+        Nand (a=b[10], b=sel, out=nbas10);
+        Nand (a=b[11], b=sel, out=nbas11);
+        Nand (a=b[12], b=sel, out=nbas12);
+        Nand (a=b[13], b=sel, out=nbas13);
+        Nand (a=b[14], b=sel, out=nbas14);
+        Nand (a=b[15], b=sel, out=nbas15);
+
+        Nand (a=naans0, b=nbas0, out=out[0]);
+        Nand (a=naans1, b=nbas1, out=out[1]);
+        Nand (a=naans2, b=nbas2, out=out[2]);
+        Nand (a=naans3, b=nbas3, out=out[3]);
+        Nand (a=naans4, b=nbas4, out=out[4]);
+        Nand (a=naans5, b=nbas5, out=out[5]);
+        Nand (a=naans6, b=nbas6, out=out[6]);
+        Nand (a=naans7, b=nbas7, out=out[7]);
+        Nand (a=naans8, b=nbas8, out=out[8]);
+        Nand (a=naans9, b=nbas9, out=out[9]);
+        Nand (a=naans10, b=nbas10, out=out[10]);
+        Nand (a=naans11, b=nbas11, out=out[11]);
+        Nand (a=naans12, b=nbas12, out=out[12]);
+        Nand (a=naans13, b=nbas13, out=out[13]);
+        Nand (a=naans14, b=nbas14, out=out[14]);
+        Nand (a=naans15, b=nbas15, out=out[15]);
+}

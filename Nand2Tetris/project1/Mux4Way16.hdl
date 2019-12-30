@@ -1,0 +1,190 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/01/Mux4Way16.hdl
+
+/**
+ * 4-way 16-bit multiplexor:
+ * out = a if sel == 00
+ *       b if sel == 01
+ *       c if sel == 10
+ *       d if sel == 11
+ */
+
+CHIP Mux4Way16 {
+    IN a[16], b[16], c[16], d[16], sel[2];
+    OUT out[16];
+
+    PARTS:
+    // Put your code here:
+    // (a and not sel) or (b and sel) 
+
+        // not sel
+        Nand (a=sel[0], b=sel[0], out=notsel0);
+        
+        // a and not sel
+        Nand (a=a[0], b=notsel0, out=naans0);
+        Nand (a=a[1], b=notsel0, out=naans1);
+        Nand (a=a[2], b=notsel0, out=naans2);
+        Nand (a=a[3], b=notsel0, out=naans3);
+        Nand (a=a[4], b=notsel0, out=naans4);
+        Nand (a=a[5], b=notsel0, out=naans5);
+        Nand (a=a[6], b=notsel0, out=naans6);
+        Nand (a=a[7], b=notsel0, out=naans7);
+        Nand (a=a[8], b=notsel0, out=naans8);
+        Nand (a=a[9], b=notsel0, out=naans9);
+        Nand (a=a[10], b=notsel0, out=naans10);
+        Nand (a=a[11], b=notsel0, out=naans11);
+        Nand (a=a[12], b=notsel0, out=naans12);
+        Nand (a=a[13], b=notsel0, out=naans13);
+        Nand (a=a[14], b=notsel0, out=naans14);
+        Nand (a=a[15], b=notsel0, out=naans15);
+
+        // b and sel
+        Nand (a=b[0], b=sel[0], out=nbas0);
+        Nand (a=b[1], b=sel[0], out=nbas1);
+        Nand (a=b[2], b=sel[0], out=nbas2);
+        Nand (a=b[3], b=sel[0], out=nbas3);
+        Nand (a=b[4], b=sel[0], out=nbas4);
+        Nand (a=b[5], b=sel[0], out=nbas5);
+        Nand (a=b[6], b=sel[0], out=nbas6);
+        Nand (a=b[7], b=sel[0], out=nbas7);
+        Nand (a=b[8], b=sel[0], out=nbas8);
+        Nand (a=b[9], b=sel[0], out=nbas9);
+        Nand (a=b[10], b=sel[0], out=nbas10);
+        Nand (a=b[11], b=sel[0], out=nbas11);
+        Nand (a=b[12], b=sel[0], out=nbas12);
+        Nand (a=b[13], b=sel[0], out=nbas13);
+        Nand (a=b[14], b=sel[0], out=nbas14);
+        Nand (a=b[15], b=sel[0], out=nbas15);
+
+        Nand (a=naans0, b=nbas0, out=p10);
+        Nand (a=naans1, b=nbas1, out=p11);
+        Nand (a=naans2, b=nbas2, out=p12);
+        Nand (a=naans3, b=nbas3, out=p13);
+        Nand (a=naans4, b=nbas4, out=p14);
+        Nand (a=naans5, b=nbas5, out=p15);
+        Nand (a=naans6, b=nbas6, out=p16);
+        Nand (a=naans7, b=nbas7, out=p17);
+        Nand (a=naans8, b=nbas8, out=p18);
+        Nand (a=naans9, b=nbas9, out=p19);
+        Nand (a=naans10, b=nbas10, out=p110);
+        Nand (a=naans11, b=nbas11, out=p111);
+        Nand (a=naans12, b=nbas12, out=p112);
+        Nand (a=naans13, b=nbas13, out=p113);
+        Nand (a=naans14, b=nbas14, out=p114);
+        Nand (a=naans15, b=nbas15, out=p115);
+
+
+        // c and not sel
+        Nand (a=c[0], b=notsel0, out=ncans0);
+        Nand (a=c[1], b=notsel0, out=ncans1);
+        Nand (a=c[2], b=notsel0, out=ncans2);
+        Nand (a=c[3], b=notsel0, out=ncans3);
+        Nand (a=c[4], b=notsel0, out=ncans4);
+        Nand (a=c[5], b=notsel0, out=ncans5);
+        Nand (a=c[6], b=notsel0, out=ncans6);
+        Nand (a=c[7], b=notsel0, out=ncans7);
+        Nand (a=c[8], b=notsel0, out=ncans8);
+        Nand (a=c[9], b=notsel0, out=ncans9);
+        Nand (a=c[10], b=notsel0, out=ncans10);
+        Nand (a=c[11], b=notsel0, out=ncans11);
+        Nand (a=c[12], b=notsel0, out=ncans12);
+        Nand (a=c[13], b=notsel0, out=ncans13);
+        Nand (a=c[14], b=notsel0, out=ncans14);
+        Nand (a=c[15], b=notsel0, out=ncans15);
+
+        // d and sel
+        Nand (a=d[0], b=sel[0], out=ndas0);
+        Nand (a=d[1], b=sel[0], out=ndas1);
+        Nand (a=d[2], b=sel[0], out=ndas2);
+        Nand (a=d[3], b=sel[0], out=ndas3);
+        Nand (a=d[4], b=sel[0], out=ndas4);
+        Nand (a=d[5], b=sel[0], out=ndas5);
+        Nand (a=d[6], b=sel[0], out=ndas6);
+        Nand (a=d[7], b=sel[0], out=ndas7);
+        Nand (a=d[8], b=sel[0], out=ndas8);
+        Nand (a=d[9], b=sel[0], out=ndas9);
+        Nand (a=d[10], b=sel[0], out=ndas10);
+        Nand (a=d[11], b=sel[0], out=ndas11);
+        Nand (a=d[12], b=sel[0], out=ndas12);
+        Nand (a=d[13], b=sel[0], out=ndas13);
+        Nand (a=d[14], b=sel[0], out=ndas14);
+        Nand (a=d[15], b=sel[0], out=ndas15);
+
+        Nand (a=ncans0, b=ndas0, out=p20);
+        Nand (a=ncans1, b=ndas1, out=p21);
+        Nand (a=ncans2, b=ndas2, out=p22);
+        Nand (a=ncans3, b=ndas3, out=p23);
+        Nand (a=ncans4, b=ndas4, out=p24);
+        Nand (a=ncans5, b=ndas5, out=p25);
+        Nand (a=ncans6, b=ndas6, out=p26);
+        Nand (a=ncans7, b=ndas7, out=p27);
+        Nand (a=ncans8, b=ndas8, out=p28);
+        Nand (a=ncans9, b=ndas9, out=p29);
+        Nand (a=ncans10, b=ndas10, out=p210);
+        Nand (a=ncans11, b=ndas11, out=p211);
+        Nand (a=ncans12, b=ndas12, out=p212);
+        Nand (a=ncans13, b=ndas13, out=p213);
+        Nand (a=ncans14, b=ndas14, out=p214);
+        Nand (a=ncans15, b=ndas15, out=p215);
+
+
+
+
+        // not sel
+        Nand (a=sel[1], b=sel[1], out=notsel1);
+        
+        // p1 and not sel
+        Nand (a=p10, b=notsel1, out=np1ans0);
+        Nand (a=p11, b=notsel1, out=np1ans1);
+        Nand (a=p12, b=notsel1, out=np1ans2);
+        Nand (a=p13, b=notsel1, out=np1ans3);
+        Nand (a=p14, b=notsel1, out=np1ans4);
+        Nand (a=p15, b=notsel1, out=np1ans5);
+        Nand (a=p16, b=notsel1, out=np1ans6);
+        Nand (a=p17, b=notsel1, out=np1ans7);
+        Nand (a=p18, b=notsel1, out=np1ans8);
+        Nand (a=p19, b=notsel1, out=np1ans9);
+        Nand (a=p110, b=notsel1, out=np1ans10);
+        Nand (a=p111, b=notsel1, out=np1ans11);
+        Nand (a=p112, b=notsel1, out=np1ans12);
+        Nand (a=p113, b=notsel1, out=np1ans13);
+        Nand (a=p114, b=notsel1, out=np1ans14);
+        Nand (a=p115, b=notsel1, out=np1ans15);
+
+        // p2 and sel
+        Nand (a=p20, b=sel[1], out=np2as0);
+        Nand (a=p21, b=sel[1], out=np2as1);
+        Nand (a=p22, b=sel[1], out=np2as2);
+        Nand (a=p23, b=sel[1], out=np2as3);
+        Nand (a=p24, b=sel[1], out=np2as4);
+        Nand (a=p25, b=sel[1], out=np2as5);
+        Nand (a=p26, b=sel[1], out=np2as6);
+        Nand (a=p27, b=sel[1], out=np2as7);
+        Nand (a=p28, b=sel[1], out=np2as8);
+        Nand (a=p29, b=sel[1], out=np2as9);
+        Nand (a=p210, b=sel[1], out=np2as10);
+        Nand (a=p211, b=sel[1], out=np2as11);
+        Nand (a=p212, b=sel[1], out=np2as12);
+        Nand (a=p213, b=sel[1], out=np2as13);
+        Nand (a=p214, b=sel[1], out=np2as14);
+        Nand (a=p215, b=sel[1], out=np2as15);
+
+        Nand (a=np1ans0, b=np2as0, out=out[0]);
+        Nand (a=np1ans1, b=np2as1, out=out[1]);
+        Nand (a=np1ans2, b=np2as2, out=out[2]);
+        Nand (a=np1ans3, b=np2as3, out=out[3]);
+        Nand (a=np1ans4, b=np2as4, out=out[4]);
+        Nand (a=np1ans5, b=np2as5, out=out[5]);
+        Nand (a=np1ans6, b=np2as6, out=out[6]);
+        Nand (a=np1ans7, b=np2as7, out=out[7]);
+        Nand (a=np1ans8, b=np2as8, out=out[8]);
+        Nand (a=np1ans9, b=np2as9, out=out[9]);
+        Nand (a=np1ans10, b=np2as10, out=out[10]);
+        Nand (a=np1ans11, b=np2as11, out=out[11]);
+        Nand (a=np1ans12, b=np2as12, out=out[12]);
+        Nand (a=np1ans13, b=np2as13, out=out[13]);
+        Nand (a=np1ans14, b=np2as14, out=out[14]);
+        Nand (a=np1ans15, b=np2as15, out=out[15]);
+}

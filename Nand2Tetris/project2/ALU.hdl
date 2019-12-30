@@ -1,0 +1,263 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/02/ALU.hdl
+
+/**
+ * The ALU (Arithmetic Logic Unit).
+ * Computes one of the following functions:
+ * x+y, x-y, y-x, 0, 1, -1, x, y, -x, -y, !x, !y,
+ * x+1, y+1, x-1, y-1, x&y, x|y on two 16-bit inputs, 
+ * according to 6 input bits denoted zx,nx,zy,ny,f,no.
+ * In addition, the ALU computes two 1-bit outputs:
+ * if the ALU output == 0, zr is set to 1; otherwise zr is set to 0;
+ * if the ALU output < 0, ng is set to 1; otherwise ng is set to 0.
+ */
+
+// Implementation: the ALU logic manipulates the x and y inputs
+// and operates on the resulting values, as follows:
+// if (zx == 1) set x = 0        // 16-bit constant
+// if (nx == 1) set x = !x       // bitwise not
+// if (zy == 1) set y = 0        // 16-bit constant
+// if (ny == 1) set y = !y       // bitwise not
+// if (f == 1)  set out = x + y  // integer 2's complement addition
+// if (f == 0)  set out = x & y  // bitwise and
+// if (no == 1) set out = !out   // bitwise not
+// if (out == 0) set zr = 1
+// if (out < 0) set ng = 1
+
+CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute out = x + y (if 1) or x & y (if 0)
+        no; // negate the out output?
+
+    OUT 
+        out[16], // 16-bit output
+        zr, // 1 if (out == 0), 0 otherwise
+        ng; // 1 if (out < 0),  0 otherwise
+
+    PARTS:
+    // Put you code here:
+        // x = x and (not zx)
+        Not (in=zx, out=notzx);
+        And (a=x[0], b=notzx, out=xaa);
+        And (a=x[1], b=notzx, out=xab);
+        And (a=x[2], b=notzx, out=x2);
+        And (a=x[3], b=notzx, out=x3);
+        And (a=x[4], b=notzx, out=x4);
+        And (a=x[5], b=notzx, out=x5);
+        And (a=x[6], b=notzx, out=x6);
+        And (a=x[7], b=notzx, out=x7);
+        And (a=x[8], b=notzx, out=x8);
+        And (a=x[9], b=notzx, out=x9);
+        And (a=x[10], b=notzx, out=x10);
+        And (a=x[11], b=notzx, out=x11);
+        And (a=x[12], b=notzx, out=x12);
+        And (a=x[13], b=notzx, out=x13);
+        And (a=x[14], b=notzx, out=x14);
+        And (a=x[15], b=notzx, out=x15);
+        
+        HalfAdder (a=xaa, b=nx, sum=xa0, carry=ca0);
+        HalfAdder (a=xab, b=nx, sum=xa1, carry=ca1);
+        HalfAdder (a=x2, b=nx, sum=xa2, carry=ca2);
+        HalfAdder (a=x3, b=nx, sum=xa3, carry=ca3);
+        HalfAdder (a=x4, b=nx, sum=xa4, carry=ca4);
+        HalfAdder (a=x5, b=nx, sum=xa5, carry=ca5);
+        HalfAdder (a=x6, b=nx, sum=xa6, carry=ca6);
+        HalfAdder (a=x7, b=nx, sum=xa7, carry=ca7);
+        HalfAdder (a=x8, b=nx, sum=xa8, carry=ca8);
+        HalfAdder (a=x9, b=nx, sum=xa9, carry=ca9);
+        HalfAdder (a=x10, b=nx, sum=xa10, carry=ca10);
+        HalfAdder (a=x11, b=nx, sum=xa11, carry=ca11);
+        HalfAdder (a=x12, b=nx, sum=xa12, carry=ca12);
+        HalfAdder (a=x13, b=nx, sum=xa13, carry=ca13);
+        HalfAdder (a=x14, b=nx, sum=xa14, carry=ca14);
+        HalfAdder (a=x15, b=nx, sum=xa15, carry=ca15);
+
+        Not (in=zy, out=notzy);
+        And (a=y[0], b=notzy, out=y0);
+        And (a=y[1], b=notzy, out=y1);
+        And (a=y[2], b=notzy, out=y2);
+        And (a=y[3], b=notzy, out=y3);
+        And (a=y[4], b=notzy, out=y4);
+        And (a=y[5], b=notzy, out=y5);
+        And (a=y[6], b=notzy, out=y6);
+        And (a=y[7], b=notzy, out=y7);
+        And (a=y[8], b=notzy, out=y8);
+        And (a=y[9], b=notzy, out=y9);
+        And (a=y[10], b=notzy, out=y10);
+        And (a=y[11], b=notzy, out=y11);
+        And (a=y[12], b=notzy, out=y12);
+        And (a=y[13], b=notzy, out=y13);
+        And (a=y[14], b=notzy, out=y14);
+        And (a=y[15], b=notzy, out=y15);
+
+        HalfAdder (a=y0, b=ny, sum=ya0, carry=cb0);
+        HalfAdder (a=y1, b=ny, sum=ya1, carry=cb1);
+        HalfAdder (a=y2, b=ny, sum=ya2, carry=cb2);
+        HalfAdder (a=y3, b=ny, sum=ya3, carry=cb3);
+        HalfAdder (a=y4, b=ny, sum=ya4, carry=cb4);
+        HalfAdder (a=y5, b=ny, sum=ya5, carry=cb5);
+        HalfAdder (a=y6, b=ny, sum=ya6, carry=cb6);
+        HalfAdder (a=y7, b=ny, sum=ya7, carry=cb7);
+        HalfAdder (a=y8, b=ny, sum=ya8, carry=cb8);
+        HalfAdder (a=y9, b=ny, sum=ya9, carry=cb9);
+        HalfAdder (a=y10, b=ny, sum=ya10, carry=cb10);
+        HalfAdder (a=y11, b=ny, sum=ya11, carry=cb11);
+        HalfAdder (a=y12, b=ny, sum=ya12, carry=cb12);
+        HalfAdder (a=y13, b=ny, sum=ya13, carry=cb13);
+        HalfAdder (a=y14, b=ny, sum=ya14, carry=cb14);
+        HalfAdder (a=y15, b=ny, sum=ya15, carry=cb15);
+
+        // compute out = x + y (if f == 1) or x & y (if f == 0)
+        // Use Mux sel = f, a = x&y, b = x+y
+        
+
+        //And16 (a=x, b=y, out=xandy);
+        Nand (a=xa0, b=ya0, out=nout0);
+        Nand (a=xa1, b=ya1, out=nout1);
+        Nand (a=xa2, b=ya2, out=nout2);
+        Nand (a=xa3, b=ya3, out=nout3);
+        Nand (a=xa4, b=ya4, out=nout4);
+        Nand (a=xa5, b=ya5, out=nout5);
+        Nand (a=xa6, b=ya6, out=nout6);
+        Nand (a=xa7, b=ya7, out=nout7);
+        Nand (a=xa8, b=ya8, out=nout8);
+        Nand (a=xa9, b=ya9, out=nout9);
+        Nand (a=xa10, b=ya10, out=nout10);
+        Nand (a=xa11, b=ya11, out=nout11);
+        Nand (a=xa12, b=ya12, out=nout12);
+        Nand (a=xa13, b=ya13, out=nout13);
+        Nand (a=xa14, b=ya14, out=nout14);
+        Nand (a=xa15, b=ya15, out=nout15);
+        
+        Nand (a=nout0, b=nout0, out=xandy0);
+        Nand (a=nout1, b=nout1, out=xandy1);
+        Nand (a=nout2, b=nout2, out=xandy2);
+        Nand (a=nout3, b=nout3, out=xandy3);
+        Nand (a=nout4, b=nout4, out=xandy4);
+        Nand (a=nout5, b=nout5, out=xandy5);
+        Nand (a=nout6, b=nout6, out=xandy6);
+        Nand (a=nout7, b=nout7, out=xandy7);
+        Nand (a=nout8, b=nout8, out=xandy8);
+        Nand (a=nout9, b=nout9, out=xandy9);
+        Nand (a=nout10, b=nout10, out=xandy10);
+        Nand (a=nout11, b=nout11, out=xandy11);
+        Nand (a=nout12, b=nout12, out=xandy12);
+        Nand (a=nout13, b=nout13, out=xandy13);
+        Nand (a=nout14, b=nout14, out=xandy14);
+        Nand (a=nout15, b=nout15, out=xandy15);
+
+
+        //Add16 (a=x, b=y, out=xaddy);
+        HalfAdder (a=xa0, b=ya0, sum=xaddy0, carry=cc0);
+        FullAdder (a=xa1, b=ya1, c=cc0, sum=xaddy1, carry=cc1);
+        FullAdder (a=xa2, b=ya2, c=cc1, sum=xaddy2, carry=cc2);
+        FullAdder (a=xa3, b=ya3, c=cc2, sum=xaddy3, carry=cc3);
+        FullAdder (a=xa4, b=ya4, c=cc3, sum=xaddy4, carry=cc4);
+        FullAdder (a=xa5, b=ya5, c=cc4, sum=xaddy5, carry=cc5);
+        FullAdder (a=xa6, b=ya6, c=cc5, sum=xaddy6, carry=cc6);
+        FullAdder (a=xa7, b=ya7, c=cc6, sum=xaddy7, carry=cc7);
+        FullAdder (a=xa8, b=ya8, c=cc7, sum=xaddy8, carry=cc8);
+        FullAdder (a=xa9, b=ya9, c=cc8, sum=xaddy9, carry=cc9);
+        FullAdder (a=xa10, b=ya10, c=cc9, sum=xaddy10, carry=cc10);
+        FullAdder (a=xa11, b=ya11, c=cc10, sum=xaddy11, carry=cc11);
+        FullAdder (a=xa12, b=ya12, c=cc11, sum=xaddy12, carry=cc12);
+        FullAdder (a=xa13, b=ya13, c=cc12, sum=xaddy13, carry=cc13);
+        FullAdder (a=xa14, b=ya14, c=cc13, sum=xaddy14, carry=cc14);
+        FullAdder (a=xa15, b=ya15, c=cc14, sum=xaddy15, carry=cc15);
+
+
+        Mux (a=xandy0, b=xaddy0, sel=f, out=out0);
+        Mux (a=xandy1, b=xaddy1, sel=f, out=out1);
+        Mux (a=xandy2, b=xaddy2, sel=f, out=out2);
+        Mux (a=xandy3, b=xaddy3, sel=f, out=out3);
+        Mux (a=xandy4, b=xaddy4, sel=f, out=out4);
+        Mux (a=xandy5, b=xaddy5, sel=f, out=out5);
+        Mux (a=xandy6, b=xaddy6, sel=f, out=out6);
+        Mux (a=xandy7, b=xaddy7, sel=f, out=out7);
+        Mux (a=xandy8, b=xaddy8, sel=f, out=out8);
+        Mux (a=xandy9, b=xaddy9, sel=f, out=out9);
+        Mux (a=xandy10, b=xaddy10, sel=f, out=out10);
+        Mux (a=xandy11, b=xaddy11, sel=f, out=out11);
+        Mux (a=xandy12, b=xaddy12, sel=f, out=out12);
+        Mux (a=xandy13, b=xaddy13, sel=f, out=out13);
+        Mux (a=xandy14, b=xaddy14, sel=f, out=out14);
+        Mux (a=xandy15, b=xaddy15, sel=f, out=out15);
+
+
+        HalfAdder (a=out0, b=no, sum=out[0], carry=cd0);
+        HalfAdder (a=out1, b=no, sum=out[1], carry=cd1);
+        HalfAdder (a=out2, b=no, sum=out[2], carry=cd2);
+        HalfAdder (a=out3, b=no, sum=out[3], carry=cd3);
+        HalfAdder (a=out4, b=no, sum=out[4], carry=cd4);
+        HalfAdder (a=out5, b=no, sum=out[5], carry=cd5);
+        HalfAdder (a=out6, b=no, sum=out[6], carry=cd6);
+        HalfAdder (a=out7, b=no, sum=out[7], carry=cd7);
+        HalfAdder (a=out8, b=no, sum=out[8], carry=cd8);
+        HalfAdder (a=out9, b=no, sum=out[9], carry=cd9);
+        HalfAdder (a=out10, b=no, sum=out[10], carry=cd10);
+        HalfAdder (a=out11, b=no, sum=out[11], carry=cd11);
+        HalfAdder (a=out12, b=no, sum=out[12], carry=cd12);
+        HalfAdder (a=out13, b=no, sum=out[13], carry=cd13);
+        HalfAdder (a=out14, b=no, sum=out[14], carry=cd14);
+        HalfAdder (a=out15, b=no, sum=out[15], carry=cd15);
+
+        HalfAdder (a=out0, b=no, sum=out0s, carry=ce0);
+        HalfAdder (a=out1, b=no, sum=out1s, carry=ce1);
+        HalfAdder (a=out2, b=no, sum=out2s, carry=ce2);
+        HalfAdder (a=out3, b=no, sum=out3s, carry=ce3);
+        HalfAdder (a=out4, b=no, sum=out4s, carry=ce4);
+        HalfAdder (a=out5, b=no, sum=out5s, carry=ce5);
+        HalfAdder (a=out6, b=no, sum=out6s, carry=ce6);
+        HalfAdder (a=out7, b=no, sum=out7s, carry=ce7);
+        HalfAdder (a=out8, b=no, sum=out8s, carry=ce8);
+        HalfAdder (a=out9, b=no, sum=out9s, carry=ce9);
+        HalfAdder (a=out10, b=no, sum=out10s, carry=ce10);
+        HalfAdder (a=out11, b=no, sum=out11s, carry=ce11);
+        HalfAdder (a=out12, b=no, sum=out12s, carry=ce12);
+        HalfAdder (a=out13, b=no, sum=out13s, carry=ce13);
+        HalfAdder (a=out14, b=no, sum=out14s, carry=ce14);
+        HalfAdder (a=out15, b=no, sum=out15s, carry=ce15);
+
+        //zr 1 if (out == 0), 0 otherwise
+        Not (in=out0s, out=notout0);
+        Not (in=out1s, out=notout1);
+        Not (in=out2s, out=notout2);
+        Not (in=out3s, out=notout3);
+        Not (in=out4s, out=notout4);
+        Not (in=out5s, out=notout5);
+        Not (in=out6s, out=notout6);
+        Not (in=out7s, out=notout7);
+        Not (in=out8s, out=notout8);
+        Not (in=out9s, out=notout9);
+        Not (in=out10s, out=notout10);
+        Not (in=out11s, out=notout11);
+        Not (in=out12s, out=notout12);
+        Not (in=out13s, out=notout13);
+        Not (in=out14s, out=notout14);
+        Not (in=out15s, out=notout15);
+        And (a=notout0, b=notout1, out=notout1o);
+        And (a=notout1o, b=notout2, out=notout2o);
+        And (a=notout2o, b=notout3, out=notout3o);
+        And (a=notout3o, b=notout4, out=notout4o);
+        And (a=notout4o, b=notout5, out=notout5o);
+        And (a=notout5o, b=notout6, out=notout6o);
+        And (a=notout6o, b=notout7, out=notout7o);
+        And (a=notout7o, b=notout8, out=notout8o);
+        And (a=notout8o, b=notout9, out=notout9o);
+        And (a=notout9o, b=notout10, out=notout10o);
+        And (a=notout10o, b=notout11, out=notout11o);
+        And (a=notout11o, b=notout12, out=notout12o);
+        And (a=notout12o, b=notout13, out=notout13o);
+        And (a=notout13o, b=notout14, out=notout14o);
+        And (a=notout14o, b=notout15, out=zr);
+
+        //ng 1 if (out < 0),  0 otherwise
+        And (a=out15s, b=out15s, out=ng);
+}
